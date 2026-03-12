@@ -1,5 +1,14 @@
+:root{
+	--bg: linear-gradient(135deg, #94568d, #800080);
+	--bg-button: #94568d;
+}
+body[data-theme = "dark"]{
+	--bg: linear-gradient(#251c24, #080208) ;
+	--bg-button: #584d57;
+}
+
 body{
-	background: linear-gradient(135deg, #94568d, #800080);
+	background: var(--bg);
 	min-height: 100vh;
 	margin: 0;
 	display: flex;
@@ -23,7 +32,7 @@ header{
 button{
 	border: none;
 	cursor: pointer;
-	background: #94568d;
+	background: var(--bg-button);
 	font-weight: bold;
 	padding: 10px 20px;
 	border-radius: 5px;

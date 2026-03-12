@@ -14,6 +14,20 @@ let bloqueado = false;
 buscarPalavras();
 salvarPartida();
 
+function alterarTema(){
+	let tema = localStorage.getItem("tema") || 'light';
+	tema = tema == 'light' ? 'dark' : 'light';
+	document.body.dataset.theme = tema;
+	localStorage.setItem("tema", tema);
+}
+
+function carregarTema(){
+	let tema = localStorage.getItem("tema") || 'light';
+	document.body.dataset.theme = tema;
+}
+
+carregarTema();
+
 async function buscarPalavras(){
 	try{
 		const response = await fetch(`${url}/api/palavras.php?quantidade=6`);
