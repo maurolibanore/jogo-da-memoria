@@ -1,5 +1,3 @@
-
-
 export function alterarTema(){
 	let tema = localStorage.getItem("tema") || 'light';
 	tema = tema == 'light' ? 'dark' : 'light';
@@ -7,10 +5,9 @@ export function alterarTema(){
 	localStorage.setItem("tema", tema);
 }
 
-export function carregarTema(){
+export function iniciarTema(){
 	let tema = localStorage.getItem("tema") || 'light';
 	document.body.dataset.theme = tema;
 }
 
-carregarTema();
 
