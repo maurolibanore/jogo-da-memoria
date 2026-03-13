@@ -1,9 +1,9 @@
 :root{
-	--bg: linear-gradient(135deg, #94568d, #800080);
-	--bg-button: #94568d;
+	--bg: linear-gradient(135deg, #46b5ff, #021118);
+	--bg-button: #003cff;
 }
-body[data-theme = "dark"]{
-	--bg: linear-gradient(#251c24, #080208) ;
+html[data-theme = "dark"]{
+	--bg: linear-gradient(135deg, #251c24, #080208) ;
 	--bg-button: #584d57;
 }
 
@@ -42,8 +42,8 @@ button{
 }
 
 button:hover{
-	background: #800080;
-	box-shadow: 0 4px 8px #94568d;
+	background: #0d0080;
+	box-shadow: 0 4px 8px #02007c;
 }
 
 .board{

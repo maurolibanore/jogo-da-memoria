@@ -1,11 +1,11 @@
-import { alterarTema, iniciarTema } from "./theme.js";
+import * as Theme from "./theme.js";
 
-document.addEventListener("DOMContentLoaded",()=>{
+document.addEventListener("DOMContentLoaded", ()=>{
 	console.log("teste");
-	iniciarTema();
+	Theme.iniciarTema();
 
 	const btnAlterarTema = document.getElementById("btnAlterarTema");
 
-	btnAlterarTema.onclick = iniciarTema;
+	btnAlterarTema.onclick = Theme.alterarTema;
 
 });

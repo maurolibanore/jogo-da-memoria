@@ -1,69 +1,12 @@
-let palavras = ["DIV", "META", "HEADER", "JS", "FOOTER", "BODY"];
+import { salvarPartida, buscarPalavras } from "./api";
 
 const btnReiniciar = document.getElementById("btnReiniciar");
 const cards = document.querySelectorAll(".card");
-const url = "https://darkblue-frog-779608.hostingersite.com";
 
 let primeira = null;
 let segunda = null;
 let tentativas = 0;
 let bloqueado = false;
-
-//iniciar();
-
-buscarPalavras();
-salvarPartida();
-
-function alterarTema(){
-	let tema = localStorage.getItem("tema") || 'light';
-	tema = tema == 'light' ? 'dark' : 'light';
-	document.body.dataset.theme = tema;
-	localStorage.setItem("tema", tema);
-}
-
-function carregarTema(){
-	let tema = localStorage.getItem("tema") || 'light';
-	document.body.dataset.theme = tema;
-}
-
-carregarTema();
-
-async function buscarPalavras(){
-	try{
-		const response = await fetch(`${url}/api/palavras.php?quantidade=6`);
-		//o único status aceitável é 200. 200==ok
-		if(!response.ok){
-			throw new Error(`Error ${response.status}`);
-		}
-		palavras = await response.json();
-		console.log(palavras);
-		iniciar();
-	}catch(error){
-		console.log(error);
-	}
-}
-
-async function salvarPartida(){
-	try{
-		const response = await fetch(`${url}/api/salvar.php`,{
-			method: 'POST',
-			header:{
-				'Content-Type':'application/json',
-			},
-			body:JSON.stringify({nome:"Antonio", tempo:20, tentativas: 100})
-		});
-		
-		if(!response.ok){
-			const errorBody = await response.json();
-			throw new Error(`ERRO ${response.status}:${errorBody.erro}`);
-		}
-		
-		const data = await response.json();
-		console.log(data);		
-	}catch(error){
-		console.log(error);
-	}
-}
 
 function iniciar(){
 	let embaralhadas = embaralhar([...palavras, ...palavras]);
