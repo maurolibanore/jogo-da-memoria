@@ -1,3 +1,4 @@
+
 let palavras = ["DIV", "META", "HEADER", "JS", "FOOTER", "BODY"];
 
 const btnReiniciar = document.getElementById("btnReiniciar");
@@ -9,24 +10,28 @@ let segunda = null;
 let tentativas = 0;
 let bloqueado = false;
 
+const btnAlterarTema = document.getElementById("btnAlterarTema");
+btnAlterarTema.onclick = () => alterarTema();
+
 //iniciar();
 
 buscarPalavras();
-salvarPartida();
+//salvarPartida();
+iniciarTema();
+
+function iniciarTema(){
+    document.documentElement.setAttribute('data-theme', localStorage.getItem("tema") || 'light');
+}
 
 function alterarTema(){
-	let tema = localStorage.getItem("tema") || 'light';
-	tema = tema == 'light' ? 'dark' : 'light';
-	document.body.dataset.theme = tema;
-	localStorage.setItem("tema", tema);
+    let tema = (localStorage.getItem("tema") || 'light') == 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', tema);
+    localStorage.setItem("tema", tema);
 }
 
-function carregarTema(){
-	let tema = localStorage.getItem("tema") || 'light';
-	document.body.dataset.theme = tema;
+function atualizarTentativas(){
+    document.getElementById("tentativas").textContent = `Tentativas: ${tentativas}`;
 }
-
-carregarTema();
 
 async function buscarPalavras(){
 	try{
@@ -44,34 +49,37 @@ async function buscarPalavras(){
 }
 
 async function salvarPartida(){
-	try{
-		const response = await fetch(`${url}/api/salvar.php`,{
-			method: 'POST',
-			header:{
-				'Content-Type':'application/json',
-			},
-			body:JSON.stringify({nome:"Antonio", tempo:20, tentativas: 100})
-		});
-		
-		if(!response.ok){
-			const errorBody = await response.json();
-			throw new Error(`ERRO ${response.status}:${errorBody.erro}`);
-		}
-		
-		const data = await response.json();
-		console.log(data);		
-	}catch(error){
-		console.log(error);
-	}
+    const nome = document.getElementById("nomeJogador").value || "Anônimo";
+    try{
+        const response = await fetch(`${url}/api/salvar.php`,{
+            method: 'POST',
+            headers:{
+                'Content-Type':'application/json',
+            },
+            body: JSON.stringify({nome: nome, tempo: 20, tentativas: tentativas})
+        });
+        
+        if(!response.ok){
+            const errorBody = await response.json();
+            throw new Error(`ERRO ${response.status}:${errorBody.erro}`);
+        }
+        
+        const data = await response.json();
+        console.log(data);		
+    }catch(error){
+        console.log(error);
+    }
 }
 
 function iniciar(){
-	let embaralhadas = embaralhar([...palavras, ...palavras]);
-	cards.forEach((card, x)=>{
-		card.textContent = "?";
-		card.dataset.palavra = embaralhadas[x];
-		card.onclick = () => virar(card);
-	});
+    tentativas = 0;
+    atualizarTentativas();
+    let embaralhadas = embaralhar([...palavras, ...palavras]);
+    cards.forEach((card, x)=>{
+        card.textContent = "?";
+        card.dataset.palavra = embaralhadas[x];
+        card.onclick = () => virar(card);
+    });
 }
 
 function virar(card){
@@ -84,6 +92,7 @@ function virar(card){
 	}
 	segunda = card;
 	tentativas++;
+    atualizarTentativas();
 	verificar();
 }
 

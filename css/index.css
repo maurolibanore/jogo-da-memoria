@@ -1,10 +1,10 @@
 :root{
-	--bg: linear-gradient(135deg, #46b5ff, #021118);
+	--bg: linear-gradient(135deg, #46b5ff, #0d0080);
 	--bg-button: #003cff;
 }
 html[data-theme = "dark"]{
-	--bg: linear-gradient(135deg, #251c24, #080208) ;
-	--bg-button: #584d57;
+	--bg: linear-gradient(135deg, #251c24, #0d0080) ;
+	--bg-button: #0d0080;
 }
 
 body{
@@ -57,7 +57,7 @@ button:hover{
 }
 
 .card.selecionado{
-	background: #800080;
+	background: #0d0080;
 }
 
 .cinza{
@@ -71,3 +71,13 @@ button:hover{
 .espacamento{
 	letter-spacing: 3px;
 }
+
+.input-nome{
+    padding: 8px 16px;
+    border: 2px solid #003cff;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: Arial;
+    text-align: center;
+}
+
